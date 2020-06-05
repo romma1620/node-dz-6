@@ -10,7 +10,7 @@ const {authMiddleware:{
 
 authRouter.post('/', authController.loginUser);
 authRouter.post('/logout', checkAccessToken, authController.logoutUser);
-authRouter.post('/refresh', checkRefreshToken, authController.refreshToken)
+authRouter.post('/refresh', checkRefreshToken, authController.refreshToken);
 
 
 module.exports = authRouter;

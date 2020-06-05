@@ -49,8 +49,8 @@ module.exports = {
             const refresh_token = req.get(authEnum.AUTH);
             const userId = req.userId;
 
-            const user = await userService.getUser(userId);
 
+            const user = await userService.getUser(userId);
             if (!user) {
                 return next(new ErrorHandler(
                     error.NOT_FOUND.message,
@@ -63,7 +63,7 @@ module.exports = {
 
 
             await authService.deleteByParams({refresh_token});
-            await authService.createTokenPair(tokens)
+            await authService.createTokenPair({...tokens, userId: req.userId})
 
 
                 res.json(tokens);
