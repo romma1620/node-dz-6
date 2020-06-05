@@ -22,6 +22,7 @@ module.exports = async (req, res, next) => {
 
         const tokenFromDB = await authService.getTokenByParams({access_token: token});
 
+
         if (!tokenFromDB) {
             return next(new ErrorHandler('Invalid token', 401, 4011));
         }

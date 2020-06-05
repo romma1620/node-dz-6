@@ -33,7 +33,8 @@ module.exports = {
 
             const access_token = req.get(authEnum.AUTH);
 
-            await authService.deleteById({access_token});
+
+            await authService.deleteByParams({access_token});
 
             res.sendStatus(200);
 

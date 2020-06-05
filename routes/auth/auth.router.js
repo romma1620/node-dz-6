@@ -6,7 +6,8 @@ const {authController} = require('../../controllers')
 const {authMiddleware} = require('../../middlewares')
 
 authRouter.post('/', authController.loginUser);
-authRouter.post('/logout', authMiddleware.checkAccessToken, authController.logoutUser)
+authRouter.post('/logout', authMiddleware.checkAccessToken, authController.logoutUser);
+authRouter.post('/refresh')
 
 
 module.exports = authRouter;

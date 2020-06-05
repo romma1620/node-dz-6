@@ -16,12 +16,12 @@ module.exports = {
 
     },
 
-    deleteById: (params) => {
+    deleteByParams: (params) => {
         const TokenModel = db.getModel('Token')
+
         return TokenModel.destroy({
-            where: {
-                params
-            }
+
+            where: params
         })
     }
 }
