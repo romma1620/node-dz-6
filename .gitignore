@@ -1,0 +1,7 @@
+
+node_modules/.bin/cdl
+node_modules/.bin/esparse.cmd
+node_modules/.bin/esparse.ps1
+node_modules/.bin/esvalidate
+node_modules/.bin/esvalidate.cmd
+node_modules/.bin/esvalidate.ps1
