@@ -15,7 +15,7 @@ module.exports = {
 
     updateUser: async (req, res) => {
         try {
-            await userService.updateUser(req.body.id, req.body.name);
+            await userService.updateUser(req.body.id, req.body);
         } catch (e) {
             res.json(e)
         }

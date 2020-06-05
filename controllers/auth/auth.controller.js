@@ -1,7 +1,8 @@
-const {authService, userService} = require('../../service');
-const {ErrorHandler} = require('../../errors');
+const {authEnum, responceStatusCodesEnum} = require('../../constants')
+const {error, ErrorHandler} = require('../../errors');
 const {tokenGenerator, checkHashPassword} = require('../../helpers');
-const {authEnum} = require('../../constants')
+const {authService, userService} = require('../../service');
+
 
 module.exports = {
     loginUser: async (req, res, next) => {
@@ -9,7 +10,7 @@ module.exports = {
             const {email, password} = req.body;
             const user = await userService.getUserByParams({email});
 
-            if (!user){
+            if (!user) {
                 return next(new ErrorHandler('Miss user', 404, 4041))
             }
 
@@ -21,7 +22,7 @@ module.exports = {
 
             res.json(tokens);
 
-        }catch (e) {
+        } catch (e) {
 
             next(e)
         }
@@ -38,7 +39,36 @@ module.exports = {
 
             res.sendStatus(200);
 
-        }catch (e) {
+        } catch (e) {
+            next(e)
+        }
+    },
+
+    refreshToken: async (req, res, next) => {
+        try {
+            const refresh_token = req.get(authEnum.AUTH);
+            const userId = req.userId;
+
+            const user = await userService.getUser(userId);
+
+            if (!user) {
+                return next(new ErrorHandler(
+                    error.NOT_FOUND.message,
+                    responceStatusCodesEnum.NOT_FOUND,
+                    error.NOT_FOUND.code
+                ))
+            }
+
+            const tokens = tokenGenerator();
+
+
+            await authService.deleteByParams({refresh_token});
+            await authService.createTokenPair(tokens)
+
+
+                res.json(tokens);
+
+        } catch (e) {
             next(e)
         }
     }
