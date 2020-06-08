@@ -11,8 +11,7 @@ const {error, ErrorHandler} = require('../../errors')
 
 module.exports = async (req, res, next) => {
     try {
-
-
+        
         const token = req.get(authEnum.AUTH);
 
         if (!token) {
@@ -30,7 +29,6 @@ module.exports = async (req, res, next) => {
         });
 
         const tokenFromDB = await authService.getTokenByParams({refresh_token: token});
-
 
         if (!tokenFromDB) {
             return next(new ErrorHandler(
